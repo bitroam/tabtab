@@ -15,5 +15,9 @@
     },
     "default_title": "tabtab\na better browser tab tools",
     "default_popup": "tabtab.html"
-  }
+  },
+  "permissions": [
+    "tabs",
+    "activeTab"
+  ]
 }
