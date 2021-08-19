@@ -1,12 +1,8 @@
 import Vue from "vue";
+Vue.config.devtools = true
 import AppComponent from "./App/App.vue";
-import {Button, Cascader, Popover, Table, TableColumn, Image, Empty,Icon} from "element-ui";
+import {Image, Empty, Icon} from "element-ui";
 
-Vue.use(Button);
-Vue.use(Cascader);
-Vue.use(Popover);
-Vue.use(Table);
-Vue.use(TableColumn);
 Vue.use(Image);
 Vue.use(Empty);
 Vue.use(Icon);
