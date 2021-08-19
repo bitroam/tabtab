@@ -4,14 +4,19 @@
       <div v-for="(item,i) in tab_infos_objs" :key="i" @mouseover="left_over(i)"
            @mouseleave="left_leave(i)"
            :style="i==is_check_left ? 'color:#ffffff;background-color:#0099FF' : 'color:#000000;background-color:#f2f2f2'">
-        <div class="tab-row">
-          <el-image :src="item.favIconUrl" style="margin-left:4px;width: 20px">
-            <div slot="error" class="image-slot">
-              <i class="el-icon-picture-outline" style="font-size:16px"></i>
+        <div style="display:flex;justify-content: space-between;align-items: center;margin-right: 2px">
+          <div class="tab-row">
+            <el-image :src="item.favIconUrl" style="margin-left:4px;width: 20px" lazy>
+              <div slot="error" class="image-slot">
+                <i class="el-icon-picture-outline" style="font-size:16px"></i>
+              </div>
+            </el-image>
+            <div style="align-items: flex-start">
+              <span class="tab_title">{{ item.domain }}</span>
             </div>
-          </el-image>
-          <div style="align-items: flex-start">
-            <span class="tab_title">{{ item.domain }}</span>
+          </div>
+          <div class="icon_delete" @click="close_all_sub_tabs(i)">
+            <i class="el-icon-delete"></i>
           </div>
         </div>
       </div>
@@ -22,7 +27,7 @@
            @mouseleave="right_leave(index)"
            :style="index==is_check_right ? 'color:#ffffff;background-color:#0099FF' : ''">
         <div class="tab-row">
-          <el-image :src="item.favIconUrl" style="margin-left:4px;width: 20px">
+          <el-image :src="item.favIconUrl" style="margin-left:4px;width: 20px" lazy>
             <div slot="error" class="image-slot">
               <i class="el-icon-picture-outline" style="font-size:16px"></i>
             </div>
@@ -67,6 +72,9 @@ export default {
       this.is_check_right = i
     },
     right_leave: function (i) {
+    },
+    close_all_sub_tabs: function (i) {
+      console.log('close_all_sub_tabs:', i)
     },
     /**
      * 截取域名
@@ -131,10 +139,27 @@ body {
 }
 
 .tab-row {
+  height: 28px;
   display: flex;
   justify-content: flex-start;
+  /*justify-content: space-around;*/
   align-items: center;
-  border-bottom: 1px solid #f2f2f2;
+  /*border-bottom: 1px solid #f2f2f2;*/
+
+}
+
+.icon_delete {
+  width: 28px;
+  height: 28px;
+}
+
+.el-icon-delete {
+  width: 28px;
+  height: 28px;
+  color: red;
+  margin: 0 auto; /*水平居中*/
+  position: relative;
+  top: 25%; /*偏移*/
 }
 
 .tab_title {
