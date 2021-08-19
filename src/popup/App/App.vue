@@ -1,22 +1,37 @@
 <template>
   <div class="main_app">
     <div class="left">
-      <div v-for="(item,i) in tabs_infos" :key="item.id">
+      <div v-for="(item,i) in tab_infos_objs" :key="i" @mouseover="left_over(i)"
+           @mouseleave="left_leave(i)"
+           :style="i==is_check_left ? 'color:#ffffff;background-color:#0099FF' : 'color:#000000;background-color:#f2f2f2'">
         <div class="tab-row">
-          <el-image :src="item.favIconUrl" style="width: 20px" :fit="contain">
+          <el-image :src="item.favIconUrl" style="margin-left:4px;width: 20px">
             <div slot="error" class="image-slot">
-              <i class="el-icon-picture-outline" style="width: 28px"></i>
+              <i class="el-icon-picture-outline" style="font-size:16px"></i>
             </div>
           </el-image>
           <div style="align-items: flex-start">
-            <span @mouseover="hover(i)" class="tab_title">{{ get_domain(item.url) }}</span>
+            <span class="tab_title">{{ item.domain }}</span>
           </div>
-          <hr>
         </div>
       </div>
     </div>
     <div class="right">
-      <el-empty class="empty_img" image-size=100 description="暂无数据"></el-empty>
+      <el-empty v-if="sub_tab_infos.length==0" class="empty_img" description="暂无数据"></el-empty>
+      <div v-for="(item,index) in sub_tab_infos" :key="index" @mouseover="right_over(index)"
+           @mouseleave="right_leave(index)"
+           :style="index==is_check_right ? 'color:#ffffff;background-color:#0099FF' : ''">
+        <div class="tab-row">
+          <el-image :src="item.favIconUrl" style="margin-left:4px;width: 20px">
+            <div slot="error" class="image-slot">
+              <i class="el-icon-picture-outline" style="font-size:16px"></i>
+            </div>
+          </el-image>
+          <div style="align-items: flex-start">
+            <div class="tab_title">{{ item.title }}</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -27,27 +42,34 @@ export default {
   name: 'app',
   data() {
     return {
-      tabs_infos: [],
+      is_check_left: '',
+      is_check_right: '',
+      tab_infos_objs: [],
+      sub_tab_infos: [],
     }
   },
   created() {
     var that = this
     chrome.tabs.query({}, function (tabArray) {
-      console.log('tabs_infos:', that.tabs_infos)
-      console.log(tabArray)
-      that.tabs_infos = tabArray
-      // this.nextTick(function () {
-      //   this.tabs_infos = tabArray
-      // });
-      console.log('tabs_infos:', that.tabs_infos)
+      that.tab_infos_objs = Object.values(that.classify_tab_infos(tabArray))
+      that.sub_tab_infos = that.tab_infos_objs[0].children
     })
   },
   methods: {
-    hover: function (i) {
-      console.log(i)
+    left_over: function (i) {
+      this.is_check_left = i
+      this.is_check_right = ''
+      this.sub_tab_infos = this.tab_infos_objs[i].children
+    },
+    left_leave: function (i) {
+    },
+    right_over: function (i) {
+      this.is_check_right = i
+    },
+    right_leave: function (i) {
     },
     /**
-     * 取域名
+     * 截取域名
      * @param url
      * @returns {*}
      */
@@ -57,41 +79,58 @@ export default {
         return arrUrl[1].split("/")[0]
       }
       return arrUrl[0].split("/")[0]
+    },
+    classify_tab_infos: function (tab_infos) {
+      var result = {};
+      for (var i = 0; i < tab_infos.length; i++) {
+        var favIconUrl = tab_infos[i].favIconUrl
+        var domain = this.get_domain(tab_infos[i].url)
+        if (result.hasOwnProperty(domain) && result[domain].hasOwnProperty('domain') && result[domain].domain === domain) {
+          result[domain].children.push(tab_infos[i]);
+        } else {
+          result[domain] = {
+            favIconUrl: favIconUrl,
+            domain: domain,
+            children: [tab_infos[i]]
+          }
+        }
+      }
+      return result
     }
-
   }
 }
 </script>
 
 <style>
+body {
+  margin: 4px 0px;
+  background-color: #f2f2f2;
+}
+
 .main_app {
+  padding: 0px;
+  margin: 0px;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  /*margin-top: 100px;*/
-  width: 600px;
+  width: 400px;
   height: 600px;
   display: flex;
   justify-content: space-between;
 }
 
 .left {
-  flex-direction: row-reverse;
-  width: 49%;
-  overflow-y: auto;
-  height: 600px;
+  width: 50%;
 }
 
 .right {
-  width: 49%;
-  background-color: lightgoldenrodyellow;
+  width: 50%;
 
 }
 
 .tab-row {
-  padding: 4px 0px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -101,7 +140,7 @@ export default {
 .tab_title {
   margin-left: 12px;
   font-size: 14px;
-  width: 100%; /*必须设置宽度*/
+  width: 150px; /*必须设置宽度*/
   overflow: hidden; /*溢出隐藏*/
   text-overflow: ellipsis; /*以省略号...显示*/
   white-space: nowrap; /*强制不换行*/
@@ -114,14 +153,7 @@ export default {
 
 .empty_img {
   align-items: center;
+  width: 100px;
+  height: 100px
 }
-
-a:hover {
-  background-color: yellow;
-}
-
-tab-row:hover {
-  background-color: red;
-}
-
 </style>
