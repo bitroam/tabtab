@@ -24,7 +24,7 @@
     <div class="right">
       <el-empty v-if="sub_tab_infos.length==0" class="empty_img" description="暂无数据"></el-empty>
       <div v-for="(item,index) in sub_tab_infos" :key="index" @mouseover="right_over(index)"
-           @mouseleave="right_leave(index)"
+           @mouseleave="right_leave(index)" @click="right_click(index)"
            :style="index==is_check_right ? 'color:#ffffff;background-color:#0099FF' : ''">
         <div class="tab-row">
           <el-image :src="item.favIconUrl" style="margin-left:4px;width: 20px" lazy>
@@ -61,6 +61,12 @@ export default {
     })
   },
   methods: {
+    right_click: function (i) {
+      var windowId = this.sub_tab_infos[i].windowId;
+      var index = this.sub_tab_infos[i].index;
+      chrome.tabs.highlight({"tabs": index, "windowId": windowId});
+      chrome.windows.update(windowId, {focused: true});
+    },
     left_over: function (i) {
       this.is_check_left = i
       this.is_check_right = ''
