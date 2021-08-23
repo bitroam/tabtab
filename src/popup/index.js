@@ -1,5 +1,4 @@
 import Vue from "vue";
-Vue.config.devtools = true
 import AppComponent from "./App/App.vue";
 import {Image, Empty, Icon} from "element-ui";
 
