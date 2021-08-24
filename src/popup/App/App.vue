@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import {getDomain} from 'tldjs'
 
 export default {
   name: 'app',
@@ -88,11 +89,7 @@ export default {
      * @returns {*}
      */
     get_domain: function (url) {
-      var arrUrl = url.split("//");
-      if (url.indexOf("//") > -1) {
-        return arrUrl[1].split("/")[0]
-      }
-      return arrUrl[0].split("/")[0]
+      return getDomain(url)
     },
     classify_tab_infos: function (tab_infos) {
       var result = {};
