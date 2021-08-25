@@ -89,7 +89,10 @@ export default {
      * @returns {*}
      */
     get_domain: function (url) {
-      return getDomain(url)
+      if (url.startsWith('view-source:')) {
+        url = url.slice(12)
+      }
+      return getDomain(url);
     },
     classify_tab_infos: function (tab_infos) {
       var result = {};
