@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "tabtab",
-    "description": "a better browser tabs tools",
+    "description": "A browser extension that merges tabs of the same website into a group, easy locating and management.",
     "version": "0.0.1",
     "options_page": "options.html",
     "browser_action": {
