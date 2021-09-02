@@ -3,7 +3,7 @@
     <div class="left">
       <div v-for="(item,i) in tab_infos_objs" :key="i" @mouseover="left_over(i)"
            @mouseleave="left_leave(i)"
-           :style="i==is_check_left ? 'color:#ffffff;background-color:#0099FF' : 'color:#000000;background-color:#f2f2f2'">
+           :style="i==is_check_left ? 'color:#ffffff;background-color:#0099FF' : ''">
         <div style="display:flex;justify-content: space-between;align-items: center;margin-right: 2px">
           <div class="tab-row">
             <el-image :src="item.favIconUrl" style="margin-left:4px;width: 20px" lazy>
@@ -118,7 +118,6 @@ export default {
 <style>
 body {
   margin: 4px 0px;
-  background-color: #f2f2f2;
 }
 
 .main_app {
@@ -148,10 +147,7 @@ body {
   height: 28px;
   display: flex;
   justify-content: flex-start;
-  /*justify-content: space-around;*/
   align-items: center;
-  /*border-bottom: 1px solid #f2f2f2;*/
-
 }
 
 .icon_delete {
