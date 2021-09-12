@@ -15,9 +15,9 @@
               <span class="tab_title">{{ item.domain }}</span>
             </div>
           </div>
-          <div class="icon_delete" @click="close_all_sub_tabs(i)">
-            <i class="el-icon-delete"></i>
-          </div>
+          <!--          <div class="icon_delete" @click="close_all_sub_tabs(i)">-->
+          <!--            <i class="el-icon-delete"></i>-->
+          <!--          </div>-->
         </div>
       </div>
     </div>
@@ -140,7 +140,6 @@ body {
 
 .right {
   width: 50%;
-
 }
 
 .tab-row {
