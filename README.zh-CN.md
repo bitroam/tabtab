@@ -14,34 +14,34 @@
   </a>
 </p>
 
-English | [简体中文](./README.zh-CN.md)
+简体中文 | [English](./README.md)
 
-## Introduction
+## 简介
 
-[tabtab](https://github.com/bitroam/tabtab) is a browser extension that merges tabs of the same website into a group, easy locating and management.
+[tabtab](https://github.com/bitroam/tabtab) 是一个浏览器扩展。它可以将同一网站的标签页合并成一个组，方便定位和管理。
 
 ![](https://store-images.s-microsoft.com/image/apps.12257.4fd8a5ee-9e7a-48e1-b47d-c976b2b5bd54.8c5721c4-4a9b-4872-906e-4118d70bbe7a.da841d49-50ad-455b-b6f9-f4561d5364ff)
 
-## Experience entrance
+## 体验入口：
 
-[tabtab(edge)](https://microsoftedge.microsoft.com/addons/detail/tabtab/keeicmfphjcbjdgbdagbamaafbfiaobd)
+[tabtab(edge浏览器)](https://microsoftedge.microsoft.com/addons/detail/tabtab/keeicmfphjcbjdgbdagbamaafbfiaobd)
 
-> If you find this project useful, please give me a star
+> 如果你觉得这个扩展还有点儿用，麻烦给我一个 star
 
 ## Todo
 
-- [ ] close tabs by group
-- [ ] search by title and url
-- [ ] differentiate multiple windows
+- [ ] 快速关闭一组标签页
+- [ ] 通过标签页 url 或标题快速定位
+- [ ] 区分多个窗口
 - [ ] ...
 
-## Browsers support
+## 支持的浏览器
 
-Currently supports edge
+目前暂支持 edge
 | ![edge](https://github.com/alrra/browser-logos/blob/main/src/edge/edge_48x48.png) |
 | :-------------------------------------------------------------------------------: |
 | edge |
 
-## License
+## 许可证
 
 [GPLv3](https://github.com/bitroam/tabtab/blob/main/LICENSE)
